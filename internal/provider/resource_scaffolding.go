@@ -66,6 +66,8 @@ func resourceScaffoldingRead(ctx context.Context, d *schema.ResourceData, meta i
 	// use the meta value to retrieve your client from the provider configure method
 	// client := meta.(*apiClient)
 
+	resourceScaffoldingCreate(ctx, d, meta)
+
 	return nil
 }
 
@@ -73,12 +75,16 @@ func resourceScaffoldingUpdate(ctx context.Context, d *schema.ResourceData, meta
 	// use the meta value to retrieve your client from the provider configure method
 	// client := meta.(*apiClient)
 
+	resourceScaffoldingCreate(ctx, d, meta)
+
 	return nil
 }
 
 func resourceScaffoldingDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// use the meta value to retrieve your client from the provider configure method
 	// client := meta.(*apiClient)
+
+	d.SetId("")
 
 	return nil
 }
