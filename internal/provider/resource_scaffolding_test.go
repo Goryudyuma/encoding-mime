@@ -8,8 +8,6 @@ import (
 )
 
 func TestAccResourceScaffolding(t *testing.T) {
-	t.Skip("resource not yet implemented, remove this once you add your own code")
-
 	resource.UnitTest(t, resource.TestCase{
 		PreCheck:          func() { testAccPreCheck(t) },
 		ProviderFactories: providerFactories,
@@ -18,7 +16,14 @@ func TestAccResourceScaffolding(t *testing.T) {
 				Config: testAccResourceScaffolding,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestMatchResourceAttr(
-						"scaffolding_resource.foo", "sample_attribute", regexp.MustCompile("^ba")),
+						"mime.foo", "input", regexp.MustCompile("^あああ$")),
+				),
+			},
+			{
+				Config: testAccResourceScaffolding,
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestMatchResourceAttr(
+						"mime.foo", "value", regexp.MustCompile("^=\\?utf-8\\?b\\?44GC44GC44GC\\?=$")),
 				),
 			},
 		},
@@ -26,7 +31,7 @@ func TestAccResourceScaffolding(t *testing.T) {
 }
 
 const testAccResourceScaffolding = `
-resource "scaffolding_resource" "foo" {
-  sample_attribute = "bar"
+resource "mime" "foo" {
+  input = "あああ"
 }
 `
