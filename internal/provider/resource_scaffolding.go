@@ -45,11 +45,10 @@ func resourceScaffoldingCreate(ctx context.Context, d *schema.ResourceData, meta
 	// use the meta value to retrieve your client from the provider configure method
 	// client := meta.(*apiClient)
 
-	d.SetId("aa")
-
 	inputValue := d.Get("input").(string)
 	charset := d.Get("charset").(string)
 	encodedValue := mime.BEncoding.Encode(charset, inputValue)
+	d.SetId(encodedValue)
 	err := d.Set("value", encodedValue)
 	if err != nil {
 		return diag.Errorf("%s", err.Error())
